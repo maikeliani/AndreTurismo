@@ -20,7 +20,7 @@ namespace AndreTurismo.Services
             bool status = false;
             try
             {
-                string strInsert = "INSERT INTO City (Street, Number, Neighborhood, ZipCode, Complement, RegistrationDate, Id_City) VALUES (@Street, @Number, @Neighborhood, @ZipCode, @Complement, @RegistrationDate, @Id_City); SELECT CAST(scope_identity() as int)";
+                string strInsert = "INSERT INTO Adress (Street, Number, Neighborhood, ZipCode, Complement, IdCity, Dt_Register ) VALUES (@Street, @Number, @Neighborhood, @ZipCode, @Complement, @IdCity, @Dt_Register ); SELECT CAST(scope_identity() as int)";
 
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
@@ -28,9 +28,9 @@ namespace AndreTurismo.Services
                 commandInsert.Parameters.Add(new SqlParameter("@Number", address.Number));
                 commandInsert.Parameters.Add(new SqlParameter("@Neighborhood", address.NeighborHood));
                 commandInsert.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
-                commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
-                commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", address.Dt_Register));
+                commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));               
                 commandInsert.Parameters.Add(new SqlParameter("@IdCity", address.City));
+                commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", address.Dt_Register));
 
                 commandInsert.ExecuteNonQuery();
                 status = true;
@@ -57,7 +57,7 @@ namespace AndreTurismo.Services
             sb.Append(" a.Complement,");
             sb.Append(" a.Dt_Register,");
             sb.Append(" a.IdCity,");
-            sb.Append(" c.Id AS IdCity,");
+            sb.Append(" c.Id,");
             sb.Append(" c.Description,");            
             sb.Append(" FROM Address a, City c");
             sb.Append(" WHERE c.Id = a.IdCity");

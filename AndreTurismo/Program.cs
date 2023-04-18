@@ -10,9 +10,9 @@ internal class Program
             Name = "Jose das Couves",
             Id = 1,
             Telephone = "16997225955",
-             //Adress ad = new Adress() {Id =1 },
+           // Adress ad = new Adress(),
             
-            Dt_Register = new DateTime(18/04/2023)
+            Dt_Register = new DateTime(2023,05,01)
             
         };
 
