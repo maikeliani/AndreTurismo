@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AndreTurismo.Models
 {
@@ -19,8 +21,14 @@ namespace AndreTurismo.Models
 
         public string Complement { get; set; }
 
-        public string City { get; set; }  // mudar pra Int pq é o codigo?/
+        public City City { get; set; }  
 
         public DateTime Dt_Register { get; set; }
+
+
+       
     }
+
+   
+
 }

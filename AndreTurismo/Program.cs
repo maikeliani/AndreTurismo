@@ -5,15 +5,34 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+
+        City city = new()
+        {
+            Description = "Araraquara",
+
+            Dt_Register = DateTime.Now
+    };
+
+        Adress ad = new()
+        {
+            Street = " rua dos Ipes",
+            Number = 10,
+            NeighborHood = "Vila Harmonia",
+            ZipCode = "14804087",
+            Dt_Register = DateTime.Now,
+            Complement = "",
+            City = city
+
+        };
+
+
         Client client = new()
         {
             Name = "Jose das Couves",
-            Id = 1,
             Telephone = "16997225955",
-           // Adress ad = new Adress(),
-            
-            Dt_Register = new DateTime(2023,05,01)
-            
+            Adress = ad,
+            Dt_Register = DateTime.Now
+
         };
 
         if (new ClientController().Insert(client))

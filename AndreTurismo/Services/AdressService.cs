@@ -78,7 +78,7 @@ namespace AndreTurismo.Services
                 address.Dt_Register = (DateTime)dr["Dt_Register"];
                 address.City = new City()
                 {
-                    Id = (int)dr["IdCity"],
+                    Id = (int)dr["Id"],
                     Description = (string)dr["Description"],
                     Dt_Register = (DateTime)dr["Dt_Register"]
                     
