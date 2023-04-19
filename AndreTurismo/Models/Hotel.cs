@@ -16,6 +16,12 @@ namespace AndreTurismo.Models
 
         public DateTime Dt_Register { get; set; }
 
-        public decimal Price { get; set; }
+        public double Price { get; set; } //era decimal
+
+        public override string ToString()
+        {
+            return $"\nNome: {Name}\nEndereço: {Adress}" +
+                $"\nData de cadastro do hotel:{Dt_Register}\nPreço: {Price}";
+        }
     }
 }

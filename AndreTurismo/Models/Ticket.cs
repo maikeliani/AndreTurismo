@@ -10,14 +10,14 @@ namespace AndreTurismo.Models
     {
         public int Id { get; set; }
 
-        public string SourceAdress { get; set; }
+        public Adress SourceAdress { get; set; }
 
-        public string  DestinationAdress { get; set; }
+        public Adress DestinationAdress { get; set; }
 
         public Client  Client { get; set; }
 
-        public DateTime DateAndTime { get; set; }
+        public DateTime Dt_Register { get; set; }
 
-        public decimal Price { get; set; } 
+        public double Price { get; set; } 
     }
 }

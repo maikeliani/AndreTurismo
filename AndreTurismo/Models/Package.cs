@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AndreTurismo.Models
 {
-    public  class Packages
+    public  class Package
     {
         public int Id { get; set; }
         public Hotel Hotel { get; set; }
@@ -15,7 +15,7 @@ namespace AndreTurismo.Models
 
         public DateTime Dt_Register { get; set; }
 
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         public Client Client { get; set; }
     }
