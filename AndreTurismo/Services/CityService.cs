@@ -50,6 +50,43 @@ namespace AndreTurismo.Services
             return status;
         }
 
+        //DELETE
+
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+            try
+            {
+
+                Console.WriteLine(Id);
+                Console.ReadLine();
+                string strInsert = " DELETE FROM City where Id = @Id ";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+
+
         public List<City> FindAll()
         {
             List<City> cities = new();

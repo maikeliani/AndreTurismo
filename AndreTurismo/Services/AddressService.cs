@@ -20,7 +20,9 @@ namespace AndreTurismo.Services
             bool status = false;
             try
             {
-                string strInsert = "INSERT INTO Adress (Street, Number, Neighborhood, ZipCode, Complement, IdCity, Dt_Register ) VALUES (@Street, @Number, @Neighborhood, @ZipCode, @Complement, @IdCity, @Dt_Register ); SELECT CAST(scope_identity() as int)";
+                string strInsert = "INSERT INTO Adress (Street, Number, Neighborhood, ZipCode, Complement, IdCity, Dt_Register )" +
+                    " VALUES (@Street, @Number, @Neighborhood, @ZipCode, @Complement, @IdCity, @Dt_Register );" +
+                    " SELECT CAST(scope_identity() as int)";
 
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
@@ -29,7 +31,7 @@ namespace AndreTurismo.Services
                 commandInsert.Parameters.Add(new SqlParameter("@Neighborhood", address.NeighborHood));
                 commandInsert.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
                 commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));               
-                commandInsert.Parameters.Add(new SqlParameter("@IdCity", address.City));
+                commandInsert.Parameters.Add(new SqlParameter("@IdCity", InsertCity(address.City)));
                 commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", address.Dt_Register));
 
                 commandInsert.ExecuteNonQuery();
@@ -42,6 +44,52 @@ namespace AndreTurismo.Services
             }
             return status;
         }
+
+        //METODO DELETE
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+            try
+            {
+               
+                Console.WriteLine(Id);
+                Console.ReadLine();
+                string strInsert = " DELETE FROM Adress where Id = @Id ";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+        private int InsertCity(City city)
+        {
+            string strInsert = "insert into City (Description, Dt_Register) values (@Description, @Dt_Register ); " +
+                "select cast(scope_identity() as int)";
+            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+            commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
+            commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", city.Dt_Register));
+            return (int)commandInsert.ExecuteScalar();
+
+        }
+
 
         public List<Adress> FindAll()
         {

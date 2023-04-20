@@ -15,6 +15,13 @@ namespace AndreTurismo.Controllers
             return new TicketService().Insert(ticket);
         }
 
+
+        public bool Delete(int id)
+        {
+            return new TicketService().Delete(id);
+        }
+
+
         public List<Ticket> FindAll()
         { 
             return new TicketService().FindAll();

@@ -20,17 +20,20 @@ namespace AndreTurismo.Services
             conn.Open();
         }
 
+
+
         public bool Insert(Ticket ticket)
         {
             bool status = false;
             try
             {
-                string strInsert = "insert into Ticket (SourceAdress, DestinationAdress , Client, Dt_Register, Price) values (@SourceAdress, @DestinationAdress, @Client, @Dt_Register, @Price)";
+                string strInsert = "insert into Ticket (SourceAdress, DestinationAdress , IdClient, Dt_Register, Price)" +
+                    " values (@SourceAdress, @DestinationAdress, @IdClient, @Dt_Register, @Price)";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
                 commandInsert.Parameters.Add(new SqlParameter("@SourceAdress", InsertAdress(ticket.SourceAdress)));
                 commandInsert.Parameters.Add(new SqlParameter("@DestinationAdress", InsertAdress(ticket.DestinationAdress)));
-                commandInsert.Parameters.Add(new SqlParameter("@Client", InsertClient(ticket.Client)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdClient", InsertClient(ticket.Client)));
                 commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", ticket.Dt_Register));
                 commandInsert.Parameters.Add(new SqlParameter("@Price", ticket.Price));
 
@@ -51,6 +54,41 @@ namespace AndreTurismo.Services
 
             return status;
         }
+
+
+
+        //DELETE
+        public bool Delete(int id)
+        {
+            bool status = false;
+            try
+            {
+                string strInsert = " DELETE FROM Ticket where Id = @Id ";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                commandInsert.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+
+
+
 
 
 
@@ -85,7 +123,7 @@ namespace AndreTurismo.Services
 
         private int InsertClient(Client client)
         {
-            string strInsert = "insert into Client (Name, Telephone, IdAdress, Dt_Register) values (@Name, @Telephone, @IdAdress, Dt_Register  ); " +
+            string strInsert = "insert into Client (Name, Telephone, IdAdress, Dt_Register) values (@Name, @Telephone, @IdAdress, @Dt_Register  ); " +
                 "select cast(scope_identity() as int)";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
             commandInsert.Parameters.Add(new SqlParameter("@Name", client.Name));
@@ -105,9 +143,9 @@ namespace AndreTurismo.Services
             StringBuilder sb = new StringBuilder();
 
             sb.Append("select t.Id,");
-            sb.Append("      a.SourceAdress,");
-            sb.Append("      a.DestinationAdress,");
-            sb.Append("      c.IdClient,");
+            sb.Append("      t.SourceAdress,");
+            sb.Append("      t.DestinationAdress,");
+            sb.Append("      t.IdClient,");
             sb.Append("      t.Dt_Register,");
             sb.Append("      t.Price");
             sb.Append("  from Ticket t ,");

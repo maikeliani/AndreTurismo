@@ -52,6 +52,39 @@ namespace AndreTurismo.Services
         }
 
 
+        //DELETE
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+            try
+            {                
+               
+                string strInsert = " DELETE FROM Hotel where Id = @Id ";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+
+
+
 
         private int InsertAdress(Adress adress)
         {
@@ -70,7 +103,7 @@ namespace AndreTurismo.Services
             return (int)commandInsert.ExecuteScalar();
 
         }
-
+            // cria um objeto do tipo City para servir como referencia
         private int InsertCity(City city)
         {
             string strInsert = "insert into City (Description, Dt_Register) values (@Description, @Dt_Register ); " +

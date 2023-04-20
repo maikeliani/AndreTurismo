@@ -15,6 +15,12 @@ namespace AndreTurismo.Controllers
             return new PackageService().Insert(package);
         }
 
+        public bool Delete(int id)
+        {
+            return new PackageService().Delete(id);
+        }
+
+
         public List<Package> FindAll()
         {
             return new PackageService().FindAll();

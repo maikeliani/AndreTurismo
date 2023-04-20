@@ -51,8 +51,42 @@ namespace AndreTurismo.Services
             return status;
         }
 
-        
 
+        //  METODO PARA DELETAR
+
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+            try
+            {
+                // id no client esta chegando como zero
+                Console.WriteLine(Id);
+                Console.ReadLine();
+                string strInsert = " DELETE FROM Client where Id = @Id ";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+     
         private int InsertAdress(Adress adress)
         {
             string strInsert = "insert into Adress " +

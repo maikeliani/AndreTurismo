@@ -25,14 +25,15 @@ namespace AndreTurismo.Services
             bool status = false;
             try
             {
-                string strInsert = "insert into Package (Hotel, Ticket , Dt_Register, Price, Client) values (@Hotel, @Ticket, @Dt_Register, @Price, @Client)";
+                string strInsert = "insert into Package (IdHotel, IdTicket , Dt_Register, Price, IdClient)" +
+                    " values (@IdHotel, @IdTicket, @Dt_Register, @Price, @IdClient)";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
-                commandInsert.Parameters.Add(new SqlParameter("@Hotel", InsertHotel(pack.Hotel)));
-                commandInsert.Parameters.Add(new SqlParameter("@Ticket", InsertTicket(pack.Ticket)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdHotel", InsertHotel(pack.Hotel)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdTicket", InsertTicket(pack.Ticket)));
                 commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", pack.Dt_Register));
                 commandInsert.Parameters.Add(new SqlParameter("@Price", pack.Price));
-                commandInsert.Parameters.Add(new SqlParameter("@Client", InsertClient(pack.Client)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdClient", InsertClient(pack.Client)));
                
 
                 commandInsert.ExecuteNonQuery();
@@ -56,20 +57,20 @@ namespace AndreTurismo.Services
         private int InsertTicket(Ticket ticket)
         {
             string strInsert = "insert into Ticket " +
-                "(SourceAdress, DestinationAdress , Client, Dt_Register, Price)" +
-                " values (@SourceAdress, @DestinationAdress, @Client, @Dt_Register, @Price); " +
+                "(SourceAdress, DestinationAdress , IdClient, Dt_Register, Price)" +
+                " values (@SourceAdress, @DestinationAdress, @IdClient, @Dt_Register, @Price); " +
                 "select cast(scope_identity() as int)";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
             commandInsert.Parameters.Add(new SqlParameter("@SourceAdress", InsertAdress(ticket.SourceAdress)));
             commandInsert.Parameters.Add(new SqlParameter("@DestinationAdress", InsertAdress(ticket.DestinationAdress)));
-            commandInsert.Parameters.Add(new SqlParameter("@Client", ticket.Client.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@IdClient", InsertClient(ticket.Client)));
             commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", ticket.Dt_Register));
             commandInsert.Parameters.Add(new SqlParameter("@Price", ticket.Price));
             return (int)commandInsert.ExecuteScalar();
         }
 
-
+        //cria um objeto do tipo Hotel pra ter como referencia
         private int InsertHotel(Hotel hotel)
         {
             string strInsert = "insert into Hotel " +
@@ -85,6 +86,7 @@ namespace AndreTurismo.Services
             return (int)commandInsert.ExecuteScalar();
         }
 
+        //cria um objeto do tipo Adress pra ter como referencia
         private int InsertAdress(Adress adress)
         {
             string strInsert = "insert into Adress " +
@@ -103,6 +105,7 @@ namespace AndreTurismo.Services
 
         }
 
+        //cria um objeto do tipo City pra ter como referencia
         private int InsertCity(City city)
         {
             string strInsert = "insert into City (Description, Dt_Register) values (@Description, @Dt_Register ); " +
@@ -114,10 +117,10 @@ namespace AndreTurismo.Services
 
         }
 
-
+        //cria um objeto do tipo Client pra ter como referencia
         private int InsertClient(Client client)
         {
-            string strInsert = "insert into Client (Name, Telephone, IdAdress, Dt_Register) values (@Name, @Telephone, @IdAdress, Dt_Register  ); " +
+            string strInsert = "insert into Client (Name, Telephone, IdAdress, Dt_Register) values (@Name, @Telephone, @IdAdress, @Dt_Register  ); " +
                 "select cast(scope_identity() as int)";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
             commandInsert.Parameters.Add(new SqlParameter("@Name", client.Name));
@@ -128,6 +131,40 @@ namespace AndreTurismo.Services
 
         }
 
+        //DELETE
+
+        public bool Delete(int id)
+        {
+            bool status = false;
+            try
+            {                
+                string strInsert = " DELETE FROM Package where Id = @Id ";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                commandInsert.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+
+
+
+
 
 
         public List<Package> FindAll()
@@ -136,17 +173,17 @@ namespace AndreTurismo.Services
             StringBuilder sb = new StringBuilder();
 
             sb.Append("select p.Id,");
-            sb.Append("      h.IdHotel,");
-            sb.Append("      t.IdTicket,");
+            sb.Append("      p.IdHotel,");
+            sb.Append("      p.IdTicket,");
             sb.Append("      p.Dt_Register,");
-            sb.Append("      p.Price");
-            sb.Append("      c.IdClient");
+            sb.Append("      p.Price ,");
+            sb.Append("      p.IdClient ");
             sb.Append("  from Package p ,");
             sb.Append("    Ticket t , ");
-            sb.Append("    Hotel h ");
+            sb.Append("    Hotel h ,");
             sb.Append("    Client c ");
-            sb.Append("  where p.IdClient = c.Id and p.IdTicket = Ticket.Id  and p.IdHotel = h.Id");
-
+            sb.Append("  where p.IdClient = c.Id and p.IdTicket = Ticket.Id  and t.IdClient = p.IdClient");
+            // where p.IdClient = c.Id and p.IdTicket = Ticket.Id  and p.IdHotel = h.Id");
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
