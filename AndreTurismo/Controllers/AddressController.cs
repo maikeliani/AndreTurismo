@@ -29,9 +29,9 @@ namespace AndreTurismo.Controllers
             return new AddressService().FindAll();
         }
 
-        internal bool Update(string newStreet, int newNumber, string neighborHood, string newNeighborHood, string zipCode, string newZipCode, string newComplement)
+        internal bool Update(string newStreet, int newNumber, string newNeighborHood, string newZipCode, string newComplement, int id)
         {
-            return new AddressService().Update(newStreet, newNumber, neighborHood, newNeighborHood, zipCode, newZipCode, newComplement);
+            return new AddressService().Update(newStreet, newNumber, newNeighborHood, newZipCode, newComplement, id);
         }
     }
 }

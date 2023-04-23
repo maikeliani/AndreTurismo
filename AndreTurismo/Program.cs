@@ -164,7 +164,7 @@ internal class Program
 
         // Update Adress
 
-        if(new AddressController().Update("Clovis Colombo", 99, "sc", "cambuy", "14800099", "9999-9", ""))
+        if(new AddressController().Update("Rua das Amoras", 99,  "cambuy",  "9999-9", "",1040))
             Console.WriteLine(" endereço atualizado");
         else
             Console.WriteLine("erro ao atualizar endereço");

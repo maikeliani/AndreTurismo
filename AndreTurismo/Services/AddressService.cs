@@ -46,6 +46,8 @@ namespace AndreTurismo.Services
             return status;
         }
 
+
+
         //METODO DELETE
 
         public bool Delete(string street, int number, string zipCode)
@@ -142,7 +144,7 @@ namespace AndreTurismo.Services
         }
 
 
-        public bool Update(string newStreet, int newNumber, string neighborHood , string newNeighborHood ,string zipCode, string newZipCode, string newComplement )
+        public bool Update(string newStreet, int newNumber, string newNeighborHood , string newZipCode, string newComplement, int id)
         {
             bool status = false;
             try
@@ -150,7 +152,7 @@ namespace AndreTurismo.Services
                 
                 string strInsert = "Update  Adress set Street = @newStreet, Number = @newNumber ," +
                     " NeighborHood = @newNeighborHood, ZipCode = @newZipCode, Complement = @newComplement " +
-                    "where Adress.NeighborHood = @NeighborHood and Adress.ZipCode = @ZipCode";
+                    "where Adress.Id = @Id";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
                 commandInsert.Parameters.Add(new SqlParameter("@newStreet", newStreet));
@@ -158,8 +160,7 @@ namespace AndreTurismo.Services
                 commandInsert.Parameters.Add(new SqlParameter("@newNeighborHood", newNeighborHood));
                 commandInsert.Parameters.Add(new SqlParameter("@newZipCode", newZipCode));
                 commandInsert.Parameters.Add(new SqlParameter("@newComplement", newComplement));
-                commandInsert.Parameters.Add(new SqlParameter("@NeighborHood", neighborHood));
-                commandInsert.Parameters.Add(new SqlParameter("@ZipCode", zipCode));
+                commandInsert.Parameters.Add(new SqlParameter("@Id", id));
 
 
                 commandInsert.ExecuteNonQuery();
@@ -179,6 +180,8 @@ namespace AndreTurismo.Services
 
             return status;
         }
+
+
 
 
 
