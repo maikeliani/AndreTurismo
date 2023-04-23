@@ -28,6 +28,11 @@ namespace AndreTurismo.Controllers
         {
             return new AddressService().FindAll();
         }
+
+        internal bool Update(string newStreet, int newNumber, string neighborHood, string newNeighborHood, string zipCode, string newZipCode, string newComplement)
+        {
+            return new AddressService().Update(newStreet, newNumber, neighborHood, newNeighborHood, zipCode, newZipCode, newComplement);
+        }
     }
 }
 

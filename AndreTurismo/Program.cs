@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.Design;
+using System.Data;
 using System.Net.Sockets;
+using System.Reflection.Emit;
+using System.Security.Cryptography;
 using AndreTurismo.Controllers;
 using AndreTurismo.Models;
 
@@ -151,9 +154,22 @@ internal class Program
 
 
         //update City
-
+        /*
         if (new CityController().Update("Guarulhos", DateTime.Parse("2023 - 04 - 21 13:15:43.513"))) 
-            Console.WriteLine();
+           
+            else
+          Console.WriteLine(" erro ao atualizar");
+        */
+
+
+        // Update Adress
+
+        if(new AddressController().Update("Clovis Colombo", 99, "sc", "cambuy", "14800099", "9999-9", ""))
+            Console.WriteLine(" endereço atualizado");
+        else
+            Console.WriteLine("erro ao atualizar endereço");
+
+
 
 
 
@@ -184,7 +200,7 @@ internal class Program
         else
             Console.WriteLine("Erro ao inserir registro");
         */
-        
+
         /*
         if (new ClientController().Update(client2,  "JURACI", "997113380", ad))
                 Console.WriteLine(" CLiente atualizado");
@@ -196,20 +212,20 @@ internal class Program
 
         //INSERTS
 
-        
+
         //criando cidade 
         /*
         if (new CityController().Insert(city2))
             Console.WriteLine("Cidade adicionada ao registro");
         else
             Console.WriteLine("Erro ao adicionar a cidade");
-        
+
         //criando endereço
         if (new AddressController().Insert(ad4))
             Console.WriteLine("Endereço cadastrado!");
         else
             Console.WriteLine("Erro ao cadastrar endereço");
-        
+
         //criando cliente
         if (new ClientController().Insert(client))
             Console.WriteLine($"Sucesso! Cliente {client.Name} Registrado");
@@ -223,7 +239,7 @@ internal class Program
             Console.WriteLine("Sucesso! Ticket Registrado");
         else
             Console.WriteLine("Erro ao inserir Ticket");
-        
+
 
         // criando hotel
         /*
@@ -234,15 +250,15 @@ internal class Program
         /*
         /*
         //criando ticket
-        
+
         if (new TicketController().Insert(ticket))
             Console.WriteLine("Sucesso! Ticket Registrado");
         else
             Console.WriteLine("Erro ao inserir Ticket");
-        
+
 
         //criando package
-        
+
         if (new PackageController().Insert(package))
             Console.WriteLine("Sucesso! Cliente Registrado");
         else
@@ -264,21 +280,21 @@ internal class Program
             Console.WriteLine("Ticket deletado com sucesso!");
         else
             Console.WriteLine("Erro ao deletar ticket");
-        
-        
+
+
         /*
         if( new HotelController().Delete("Hotel SANCA", "São Carlos"))
             Console.WriteLine("Hotel deletado do registro");
         else        
             Console.WriteLine("Erro ao deletar hotel");
         */
-        
-         /*      
-        if (new CityController().Delete(city))
-            Console.WriteLine("Cidade deletada do registro!");
-        else
-            Console.WriteLine("Erro ao deletar cidade do registro");
-        */
+
+        /*      
+       if (new CityController().Delete(city))
+           Console.WriteLine("Cidade deletada do registro!");
+       else
+           Console.WriteLine("Erro ao deletar cidade do registro");
+       */
 
         /*
         if (new ClientController().Delete(client2))

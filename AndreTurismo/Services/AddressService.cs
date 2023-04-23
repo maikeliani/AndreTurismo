@@ -140,5 +140,47 @@ namespace AndreTurismo.Services
             }
             return addresses;
         }
+
+
+        public bool Update(string newStreet, int newNumber, string neighborHood , string newNeighborHood ,string zipCode, string newZipCode, string newComplement )
+        {
+            bool status = false;
+            try
+            {
+                
+                string strInsert = "Update  Adress set Street = @newStreet, Number = @newNumber ," +
+                    " NeighborHood = @newNeighborHood, ZipCode = @newZipCode, Complement = @newComplement " +
+                    "where Adress.NeighborHood = @NeighborHood and Adress.ZipCode = @ZipCode";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+
+                commandInsert.Parameters.Add(new SqlParameter("@newStreet", newStreet));
+                commandInsert.Parameters.Add(new SqlParameter("@newNumber", newNumber));
+                commandInsert.Parameters.Add(new SqlParameter("@newNeighborHood", newNeighborHood));
+                commandInsert.Parameters.Add(new SqlParameter("@newZipCode", newZipCode));
+                commandInsert.Parameters.Add(new SqlParameter("@newComplement", newComplement));
+                commandInsert.Parameters.Add(new SqlParameter("@NeighborHood", neighborHood));
+                commandInsert.Parameters.Add(new SqlParameter("@ZipCode", zipCode));
+
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+
     }
 }
