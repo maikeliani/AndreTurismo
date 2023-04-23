@@ -15,9 +15,9 @@ namespace AndreTurismo.Controllers
             return  new HotelService().Insert(hotel);
         }
 
-        public bool Delete(int Id)
+        public bool Delete(string nameHotel, string nameCity)
         {
-            return new HotelService().Delete(Id);
+            return new HotelService().Delete(nameHotel, nameCity);
         }
 
         public List<Hotel>FindAll()

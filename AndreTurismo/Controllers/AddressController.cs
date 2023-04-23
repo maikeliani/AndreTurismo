@@ -17,9 +17,9 @@ namespace AndreTurismo.Controllers
             return new AddressService().Insert(address);
         }
 
-        public bool Delete(int Id)
+        public bool Delete(string street, int number, string zipcode)
         {
-            return new AddressService().Delete(Id);
+            return new AddressService().Delete(street, number, zipcode);
         }
 
 

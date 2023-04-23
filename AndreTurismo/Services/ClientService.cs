@@ -9,7 +9,7 @@ using AndreTurismo.Models;
 
 namespace AndreTurismo.Services
 {
-    public  class ClientService
+    public class ClientService
     {
         readonly string StrConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security = true;AttachDbFileName = C:\Turismo\turismo.mdf";
         readonly SqlConnection conn;
@@ -30,10 +30,10 @@ namespace AndreTurismo.Services
 
                 commandInsert.Parameters.Add(new SqlParameter("@Name", client.Name));
                 commandInsert.Parameters.Add(new SqlParameter("@Telephone", client.Telephone));
-                commandInsert.Parameters.Add(new SqlParameter("@IdAdress", InsertAdress( client.Adress)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdAdress", InsertAdress(client.Adress)));
                 commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", client.Dt_Register));
 
-                commandInsert.ExecuteNonQuery(); 
+                commandInsert.ExecuteNonQuery();
                 status = true;
                 return true;
             }
@@ -55,17 +55,16 @@ namespace AndreTurismo.Services
         //  METODO PARA DELETAR
 
 
-        public bool Delete(int Id)
+        public bool Delete(Client cli) 
         {
             bool status = false;
             try
             {
-                // id no client esta chegando como zero
-                Console.WriteLine(Id);
+                Console.WriteLine(" O nome do cli é: " + cli.Name);
                 Console.ReadLine();
-                string strInsert = " DELETE FROM Client where Id = @Id ";
+                string strInsert = " DELETE FROM Client where Name = @Name ";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+                commandInsert.Parameters.Add(new SqlParameter("@Name", cli.Name));
 
 
                 commandInsert.ExecuteNonQuery();
@@ -86,7 +85,52 @@ namespace AndreTurismo.Services
             return status;
         }
 
-     
+
+
+        //UPDATE
+
+                    //usar join por causa do IdAdress
+        public bool Update(Client client, string newName, string newTelephone,Adress adress )
+        {
+            bool status = false;
+            try
+            {
+                Console.WriteLine(client.Name);
+                Console.ReadLine();
+                string strInsert = "Update  Client set Name = @Name, Telephone = @Telephone , IdAdress = @IdAdress where Client.Name = client.Name";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+                
+                commandInsert.Parameters.Add(new SqlParameter("@Name", newName));
+                commandInsert.Parameters.Add(new SqlParameter("@Telephone", newTelephone));
+                commandInsert.Parameters.Add(new SqlParameter("@IdAdress", InsertAdress(adress)));
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+
+
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+
+
+
+
+
+
+
         private int InsertAdress(Adress adress)
         {
             string strInsert = "insert into Adress " +
@@ -100,9 +144,9 @@ namespace AndreTurismo.Services
             commandInsert.Parameters.Add(new SqlParameter("@ZipCode", adress.ZipCode));
             commandInsert.Parameters.Add(new SqlParameter("@Complement", adress.Complement));
             commandInsert.Parameters.Add(new SqlParameter("@IdCity", InsertCity(adress.City)));
-            commandInsert.Parameters.Add(new SqlParameter("@Dt_Register",adress.Dt_Register));
+            commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", adress.Dt_Register));
             return (int)commandInsert.ExecuteScalar();
-            
+
         }
 
         private int InsertCity(City city)
@@ -117,7 +161,7 @@ namespace AndreTurismo.Services
         }
 
 
-        
+
 
         public List<Client> FindAll()
         {
@@ -132,7 +176,7 @@ namespace AndreTurismo.Services
             sb.Append("  from Client c ,");
             sb.Append("    Adress a ");
             sb.Append("  where c.IdAdress = a.Id ");
-            
+
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
@@ -143,7 +187,7 @@ namespace AndreTurismo.Services
 
                 client.Id = (int)dr["Id"];
                 client.Name = (string)dr["Name"];
-                client.Telephone = (string) dr["Telephone"];
+                client.Telephone = (string)dr["Telephone"];
                 client.Dt_Register = (DateTime)dr["Dt_Register"];
                 client.Adress = new Adress() { Id = (int)dr["IdAdress"] };
 

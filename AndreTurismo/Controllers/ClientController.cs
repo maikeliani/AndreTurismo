@@ -15,9 +15,14 @@ namespace AndreTurismo.Controllers
             return new ClientService().Insert(client);
         }
 
-        public bool Delete(int Id) // mudei pra Id no parametro , era client
+        public bool Delete(Client cli) 
         {
-            return new ClientService().Delete(Id);
+            return new ClientService().Delete(cli);
+        }
+
+        public bool Update(Client client, string name,string Telephone, Adress adress)
+        {
+            return new ClientService().Update(client,name, Telephone, adress); 
         }
 
         public List<Client> FindAll()

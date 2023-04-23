@@ -54,15 +54,19 @@ namespace AndreTurismo.Services
 
         //DELETE
 
-        public bool Delete(int Id)
+        public bool Delete(string nameHotel, string nameCity)
         {
             bool status = false;
             try
-            {                
-               
-                string strInsert = " DELETE FROM Hotel where Id = @Id ";
+            {
+               // string strInsert = " DELETE FROM Hotel where Hotel.Name = @Name ";
+                string strInsert = "delete from Hotel where Hotel.Name = @Name and Hotel.IdAdress in " +
+                    "( select Adress.Id from Adress join City on Adress.IdCity = City.Id " +
+                    "and City.Description = @Description);";
+
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+                commandInsert.Parameters.Add(new SqlParameter("@Name", nameHotel));
+                commandInsert.Parameters.Add(new SqlParameter("@Description",nameCity));
                 commandInsert.ExecuteNonQuery();
                 status = true;
                 return true;

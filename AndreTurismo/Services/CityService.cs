@@ -53,17 +53,17 @@ namespace AndreTurismo.Services
         //DELETE
 
 
-        public bool Delete(int Id)
+        public bool Delete(City city)
         {
             bool status = false;
             try
             {
 
-                Console.WriteLine(Id);
+                Console.WriteLine(city.Description);
                 Console.ReadLine();
-                string strInsert = " DELETE FROM City where Id = @Id ";
+                string strInsert = " DELETE FROM City where Description = @Description ";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+                commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
 
 
                 commandInsert.ExecuteNonQuery();
@@ -115,7 +115,43 @@ namespace AndreTurismo.Services
             return cities;
 
         }
-            
-        
+
+
+
+        public bool Update(string description, DateTime dt_register)
+        {
+            bool status = false;
+            try
+            {
+                
+                string strInsert = "Update  City set Description = @Description where City.Dt_Register = @Dt_Register";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+
+                commandInsert.Parameters.Add(new SqlParameter("@Description", description));
+                commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", dt_register));
+                
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+
+
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
+       
+
     }
 }

@@ -15,14 +15,19 @@ namespace AndreTurismo.Controllers
             return new CityService().Insert(city);
         }
 
-        public bool Delete(int Id)
+        public bool Delete(City city)
         {
-            return  new CityService().Delete(Id);
+            return  new CityService().Delete(city);
         }
 
         public List<City> FindAll()
         {
             return new CityService().FindAll();
+        }
+
+        public bool Update(string description, DateTime dt_register)
+        {
+            return new CityService().Update(description, dt_register);
         }
     }
 }

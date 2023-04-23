@@ -12,9 +12,7 @@ namespace AndreTurismo.Models
         public string  Description { get; set; }
         public DateTime Dt_Register { get; set; }
 
-        public static implicit operator string(City v)
-        {
-            throw new NotImplementedException();
-        }
+       
+       
     }
 }

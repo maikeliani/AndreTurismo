@@ -1,5 +1,6 @@
 ﻿using AndreTurismo.Models;
 using System.Data.SqlClient;
+using System.Reflection.Emit;
 using System.Text;
 
 namespace AndreTurismo.Services
@@ -47,17 +48,20 @@ namespace AndreTurismo.Services
 
         //METODO DELETE
 
-        public bool Delete(int Id)
+        public bool Delete(string street, int number, string zipCode)
         {
             bool status = false;
             try
             {
                
-                Console.WriteLine(Id);
+                Console.WriteLine($"{street} {number} {zipCode}");
                 Console.ReadLine();
-                string strInsert = " DELETE FROM Adress where Id = @Id ";
+        
+                string strInsert = " DELETE FROM Adress where Adress.Street = @Street and Adress.Number = @Number and Adress.ZipCode = zipCode";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-                commandInsert.Parameters.Add(new SqlParameter("@Id", Id));
+                commandInsert.Parameters.Add(new SqlParameter("@Street", street));
+                commandInsert.Parameters.Add(new SqlParameter("@Number", number));
+                commandInsert.Parameters.Add(new SqlParameter("@ZipCode", zipCode));
 
 
                 commandInsert.ExecuteNonQuery();
