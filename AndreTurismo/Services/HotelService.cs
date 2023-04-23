@@ -155,5 +155,39 @@ namespace AndreTurismo.Services
             }
             return hotels;
         }
+
+
+        public bool Update(string name, double price, int id)
+        {
+            bool status = false;
+            try
+            {
+
+                string strInsert = "Update  Hotel set Name = @Name, Price = @Price where Hotel.Id = @Id";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+
+                commandInsert.Parameters.Add(new SqlParameter("@Name", name));
+                commandInsert.Parameters.Add(new SqlParameter("@Price", price));
+                commandInsert.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
+
     }
 }

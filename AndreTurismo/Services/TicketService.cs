@@ -86,12 +86,6 @@ namespace AndreTurismo.Services
         }
 
 
-
-
-
-
-
-
         private int InsertAdress(Adress adress)
         {
             string strInsert = "insert into Adress " +
@@ -134,9 +128,6 @@ namespace AndreTurismo.Services
 
         }
 
-
-
-
         public List<Ticket> FindAll()
         {
             List<Ticket> tickets = new();
@@ -172,6 +163,39 @@ namespace AndreTurismo.Services
 
             }
             return tickets;
+        }
+
+
+        public bool Update(Adress sourceAdress, Adress destinationAdress, double price, int id)
+        {
+            bool status = false;
+            try
+            {
+                string strInsert = "Update  Ticket set SourceAdress = @SourceAdress, DestinationAdress = @DestinationAdress where Ticket.Id = @Id";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+
+                commandInsert.Parameters.Add(new SqlParameter("@SourceAdress", InsertAdress(sourceAdress)));
+                commandInsert.Parameters.Add(new SqlParameter("@DestinationAdress", InsertAdress(destinationAdress)));
+                commandInsert.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+
+
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
         }
     }
 }

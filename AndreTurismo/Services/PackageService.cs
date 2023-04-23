@@ -34,7 +34,7 @@ namespace AndreTurismo.Services
                 commandInsert.Parameters.Add(new SqlParameter("@Dt_Register", pack.Dt_Register));
                 commandInsert.Parameters.Add(new SqlParameter("@Price", pack.Price));
                 commandInsert.Parameters.Add(new SqlParameter("@IdClient", InsertClient(pack.Client)));
-               
+
 
                 commandInsert.ExecuteNonQuery();
                 status = true;
@@ -137,7 +137,7 @@ namespace AndreTurismo.Services
         {
             bool status = false;
             try
-            {                
+            {
                 string strInsert = " DELETE FROM Package where Id = @Id ";
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
                 commandInsert.Parameters.Add(new SqlParameter("@Id", id));
@@ -159,12 +159,6 @@ namespace AndreTurismo.Services
 
             return status;
         }
-
-
-
-
-
-
 
 
         public List<Package> FindAll()
@@ -203,6 +197,40 @@ namespace AndreTurismo.Services
 
             }
             return packs;
+        }
+
+        public bool Update(Hotel hotel,  Ticket ticket, double price,Client client, int id)
+        {
+            bool status = false;
+            try
+            {
+                string strInsert = "Update  Package set IdHotel = @IdHotel, IdTicket = @IdTicket, Price = @Price, IdClient = @IdClient  where Package.Id = @Id";
+                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+
+                commandInsert.Parameters.Add(new SqlParameter("@IdHotel", InsertHotel(hotel)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdTicket", InsertTicket(ticket)));
+                commandInsert.Parameters.Add(new SqlParameter("@Price", price));
+                commandInsert.Parameters.Add(new SqlParameter("@IdClient", InsertClient(client)));
+                commandInsert.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandInsert.ExecuteNonQuery();
+                status = true;
+                return true;
+
+
+            }
+            catch (Exception e)
+            {
+
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
         }
     }
 }

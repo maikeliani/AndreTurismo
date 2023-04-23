@@ -26,5 +26,10 @@ namespace AndreTurismo.Controllers
         { 
             return new TicketService().FindAll();
         }
+
+        public bool Update(Adress sourceAdress, Adress destinationAdress, double price, int id)
+        {
+            return new TicketService().Update(sourceAdress, destinationAdress, price, id);  
+        }
     }
 }

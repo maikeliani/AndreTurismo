@@ -16,7 +16,7 @@ namespace AndreTurismo.Models
 
         public DateTime Dt_Register { get; set; }
 
-        public double Price { get; set; } //era decimal
+        public double Price { get; set; } 
 
         public override string ToString()
         {

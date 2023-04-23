@@ -140,18 +140,43 @@ internal class Program
 
         Package package = new()
         {
-            Hotel = hotel,
+            Hotel = hotel2,
             Ticket = ticket,
             Dt_Register = DateTime.Now,
-            Price = 359.90,
+            Price = 119.90,
             Client = client
         };
 
 
 
 
+        //update Package 
+
+        if(new PackageController().Update(hotel, ticket, 120, client3,1))
+            Console.WriteLine("Package atualizado");
+        else
+        {
+            Console.WriteLine("erro ao atualizar package");
+        }
 
 
+
+        //update Ticket
+        /*
+        if(new TicketController().Update(ad, ad3, 79.80, 2))
+            Console.WriteLine("Ticket atualizado com sucesso");
+        else
+            Console.WriteLine("erro ao atualizar ticket");
+        */
+
+
+        // Update Hotel
+        /*
+        if(new HotelController().Update("hotel de buracoquara",95.5, 7 ))
+             Console.WriteLine("hotel atualizado");
+        else
+             Console.WriteLine("erro ao atualizar hotel");
+        */
 
         //update City
         /*
@@ -163,18 +188,12 @@ internal class Program
 
 
         // Update Adress
-
+        /*
         if(new AddressController().Update("Rua das Amoras", 99,  "cambuy",  "9999-9", "",1040))
             Console.WriteLine(" endereço atualizado");
         else
             Console.WriteLine("erro ao atualizar endereço");
-
-
-
-
-
-
-
+        */
 
 
         //UPDATE
@@ -247,20 +266,15 @@ internal class Program
             Console.WriteLine("Hotel cadastrado com sucesso!");
         else
             Console.WriteLine("Erro ao cadastrar hotel");
+        */
+        
+        
+
         /*
-        /*
-        //criando ticket
-
-        if (new TicketController().Insert(ticket))
-            Console.WriteLine("Sucesso! Ticket Registrado");
-        else
-            Console.WriteLine("Erro ao inserir Ticket");
-
-
         //criando package
 
         if (new PackageController().Insert(package))
-            Console.WriteLine("Sucesso! Cliente Registrado");
+            Console.WriteLine("Sucesso! Package Registrado");
         else
             Console.WriteLine("erro ao deletar package");
         */

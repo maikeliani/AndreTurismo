@@ -24,5 +24,10 @@ namespace AndreTurismo.Controllers
         {
              return new HotelService().FindAll();
         }
+
+        public bool Update(string name, double price, int id)
+        {
+            return new HotelService().Update(name, price, id);
+        }
     }
 }
