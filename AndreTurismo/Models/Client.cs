@@ -17,9 +17,9 @@ namespace AndreTurismo.Models
         public DateTime Dt_Register { get; set; }
 
         public override string ToString()
-        {
+        {            
             return $"\nId: {Id}\nName: {Name}\nTelefone: {Telephone}" +
-                $"\nEndereço: {Adress}\nData de Registro: {Dt_Register}";
+                $"\nID do Endereço: {Adress.Id}\nData de Registro: {Dt_Register}\n";
         }
     }
 }

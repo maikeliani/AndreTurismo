@@ -92,10 +92,10 @@ namespace AndreTurismo.Services
             List<City> cities = new();
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("select c.Id,");
-            sb.Append("      c.Description,");
-            sb.Append("      c.Dt_Register,");            
-            sb.Append("  from City c, ");
+            sb.Append("select Id,");
+            sb.Append("      Description,");
+            sb.Append("      Dt_Register");            
+            sb.Append("  from City ");
 
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);

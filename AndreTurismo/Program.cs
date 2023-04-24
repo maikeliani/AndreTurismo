@@ -11,7 +11,7 @@ internal class Program
     private static void Main(string[] args)
     {
 
-        //PRIMEIRO CRIA CIDADE, DEPOIS ENDEREÇO E DEPOIS CLIENTE
+        
 
         City city = new()
         {
@@ -148,17 +148,17 @@ internal class Program
         };
 
 
-
+       // new PackageController().FindAll().ForEach(x => Console.WriteLine(x));
 
         //update Package 
-
+        /*
         if(new PackageController().Update(hotel, ticket, 120, client3,1))
             Console.WriteLine("Package atualizado");
         else
         {
             Console.WriteLine("erro ao atualizar package");
         }
-
+        */
 
 
         //update Ticket
@@ -196,7 +196,7 @@ internal class Program
         */
 
 
-        //UPDATE
+        //UPDATE CLIENT
         /*
         if (new ClientController().Update(client, "Doidão de Sanca", "999778880",ad)) 
         Console.WriteLine("alterado com sucesso");
@@ -208,28 +208,7 @@ internal class Program
 
 
 
-
-
-
-
-
-        /*
-        if (new ClientController().Insert(client))
-            Console.WriteLine($"Sucesso! Cliente   Registrado");
-        else
-            Console.WriteLine("Erro ao inserir registro");
-        */
-
-        /*
-        if (new ClientController().Update(client2,  "JURACI", "997113380", ad))
-                Console.WriteLine(" CLiente atualizado");
-        else
-            Console.WriteLine("Erro ao atualizar cliente");
-        */
-
-
-
-        //INSERTS
+        //---------------------   inserts -------------------------------------//
 
 
         //criando cidade 
@@ -238,13 +217,13 @@ internal class Program
             Console.WriteLine("Cidade adicionada ao registro");
         else
             Console.WriteLine("Erro ao adicionar a cidade");
-
+        */
         //criando endereço
         if (new AddressController().Insert(ad4))
             Console.WriteLine("Endereço cadastrado!");
         else
             Console.WriteLine("Erro ao cadastrar endereço");
-
+        /*
         //criando cliente
         if (new ClientController().Insert(client))
             Console.WriteLine($"Sucesso! Cliente {client.Name} Registrado");
@@ -267,8 +246,6 @@ internal class Program
         else
             Console.WriteLine("Erro ao cadastrar hotel");
         */
-        
-        
 
         /*
         //criando package
@@ -325,11 +302,13 @@ internal class Program
 
 
         //FindAll()
-        /*
-         new ClientController().FindAll().ForEach(Console.WriteLine);
-         new HotelController().FindAll().ForEach(Console.WriteLine);
-         new TicketController().FindAll().ForEach(Console.WriteLine);
-         new PackageController().FindAll().ForEach(Console.WriteLine);
-        */
+        
+        // new ClientController().FindAll().ForEach( x => Console.WriteLine(x));
+        // new HotelController().FindAll().ForEach(x => Console.WriteLine(x));
+        //new TicketController().FindAll().ForEach(x => Console.WriteLine(x));
+       //  new PackageController().FindAll().ForEach(x => Console.WriteLine(x));
+       //  new CityController().FindAll().ForEach(x => Console.WriteLine(x));
+         new AddressController().FindAll().ForEach(x => Console.WriteLine(x));
+
     }
 }

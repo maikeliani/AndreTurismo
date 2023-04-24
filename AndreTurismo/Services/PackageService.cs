@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using AndreTurismo.Models;
@@ -70,7 +72,7 @@ namespace AndreTurismo.Services
             return (int)commandInsert.ExecuteScalar();
         }
 
-        //cria um objeto do tipo Hotel pra ter como referencia
+
         private int InsertHotel(Hotel hotel)
         {
             string strInsert = "insert into Hotel " +
@@ -86,7 +88,7 @@ namespace AndreTurismo.Services
             return (int)commandInsert.ExecuteScalar();
         }
 
-        //cria um objeto do tipo Adress pra ter como referencia
+
         private int InsertAdress(Adress adress)
         {
             string strInsert = "insert into Adress " +
@@ -105,7 +107,7 @@ namespace AndreTurismo.Services
 
         }
 
-        //cria um objeto do tipo City pra ter como referencia
+
         private int InsertCity(City city)
         {
             string strInsert = "insert into City (Description, Dt_Register) values (@Description, @Dt_Register ); " +
@@ -117,7 +119,7 @@ namespace AndreTurismo.Services
 
         }
 
-        //cria um objeto do tipo Client pra ter como referencia
+
         private int InsertClient(Client client)
         {
             string strInsert = "insert into Client (Name, Telephone, IdAdress, Dt_Register) values (@Name, @Telephone, @IdAdress, @Dt_Register  ); " +
@@ -131,7 +133,7 @@ namespace AndreTurismo.Services
 
         }
 
-        //DELETE
+
 
         public bool Delete(int id)
         {
@@ -166,18 +168,16 @@ namespace AndreTurismo.Services
             List<Package> packs = new();
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("select p.Id,");
-            sb.Append("      p.IdHotel,");
-            sb.Append("      p.IdTicket,");
-            sb.Append("      p.Dt_Register,");
-            sb.Append("      p.Price ,");
-            sb.Append("      p.IdClient ");
-            sb.Append("  from Package p ,");
-            sb.Append("    Ticket t , ");
-            sb.Append("    Hotel h ,");
-            sb.Append("    Client c ");
-            sb.Append("  where p.IdClient = c.Id and p.IdTicket = Ticket.Id  and t.IdClient = p.IdClient");
-            // where p.IdClient = c.Id and p.IdTicket = Ticket.Id  and p.IdHotel = h.Id");
+            sb.Append("SELECT p.Id, ");
+            sb.Append("       p.Dt_Register, ");
+
+            sb.Append("       p.Price, ");
+            sb.Append("       p.IdClient, ");
+            sb.Append("       p.IdTicket, ");
+            sb.Append("       p.IdHotel ");
+            sb.Append(" FROM Package p ");
+
+
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
@@ -187,11 +187,27 @@ namespace AndreTurismo.Services
                 Package p = new();
 
                 p.Id = (int)dr["Id"];
-                p.Hotel = (Hotel)dr["IdHotel"];
-                p.Ticket = (Ticket)dr["IdTicket"];
-                p.Dt_Register = (DateTime)dr["Dt_Register"];
                 p.Price = (double)dr["Price"];
-                p.Client = new Client() { Id = (int)dr["IdClient"] };
+                p.Ticket = new Ticket()
+                {
+                    Id = (int)dr["IdTicket"],
+
+                };
+                p.Hotel = new Hotel()
+                {
+                    Id = (int)dr["IdHotel"]
+                                                       
+
+                };                
+               
+                p.Price = (double)dr["Price"];
+                p.Client = new Client()
+                {
+                    Id = (int)dr["IdClient"]
+
+
+
+                };
 
                 packs.Add(p);
 
@@ -199,7 +215,9 @@ namespace AndreTurismo.Services
             return packs;
         }
 
-        public bool Update(Hotel hotel,  Ticket ticket, double price,Client client, int id)
+
+
+        public bool Update(Hotel hotel, Ticket ticket, double price, Client client, int id)
         {
             bool status = false;
             try

@@ -112,8 +112,8 @@ namespace AndreTurismo.Services
             sb.Append(" a.Dt_Register,");
             sb.Append(" a.IdCity,");
             sb.Append(" c.Id,");
-            sb.Append(" c.Description,");            
-            sb.Append(" FROM Address a, City c");
+            sb.Append(" c.Description");            
+            sb.Append(" FROM Adress a, City c");
             sb.Append(" WHERE c.Id = a.IdCity");
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);

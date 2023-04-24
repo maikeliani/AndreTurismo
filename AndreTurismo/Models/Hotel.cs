@@ -20,8 +20,7 @@ namespace AndreTurismo.Models
 
         public override string ToString()
         {
-            return $"\nNome: {Name}\nEndereço: {Adress}" +
-                $"\nData de cadastro do hotel:{Dt_Register}\nPreço: {Price}";
+            return $"\nNome: {Name}\nData de cadastro do hotel:{Dt_Register}\nPreço: {Price}";
         }
     }
 }

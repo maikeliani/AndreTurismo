@@ -25,8 +25,12 @@ namespace AndreTurismo.Models
 
         public DateTime Dt_Register { get; set; }
 
+        public override string ToString()
+        {
+            return $"\nRua: {Street}\nNumero: {Number}\n" +
+                $"Bairro: {NeighborHood}\nCep: {ZipCode}\n";
+        }
 
-       
     }
 
    

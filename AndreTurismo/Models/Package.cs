@@ -18,5 +18,11 @@ namespace AndreTurismo.Models
         public double Price { get; set; }
 
         public Client Client { get; set; }
+
+        public override string ToString()
+        {
+            return $"Hotel: {Hotel.Id}\nTicket: {Ticket.Id}\n" +
+                $"Preço: {Price}\nCLiente: {Client.Id}\n";
+        }
     }
 }

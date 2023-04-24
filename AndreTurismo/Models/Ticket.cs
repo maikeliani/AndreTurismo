@@ -18,6 +18,13 @@ namespace AndreTurismo.Models
 
         public DateTime Dt_Register { get; set; }
 
-        public double Price { get; set; } 
+        public double Price { get; set; }
+
+        public override string ToString()
+        {
+            return $"\nId: {Id}\nData de registro: {Dt_Register}\n Preço: {Price}";
+
+
+        }
     }
 }
